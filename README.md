@@ -1,47 +1,79 @@
 # Social Media Addiction and Usage Datasets
 
 ## Overview
+# Social Media Addiction Score Prediction
 
-This repository contains three related datasets designed to explore social media behavior and its effects on students:
-
-1. **Students Social Media Addiction Dataset**  
-   Survey data capturing student demographics, social media habits, mental health status, and self-reported academic impact.
-
-2. **Social Media Usage Dataset**  
-   Quantitative metrics of daily user activity across different social media platforms, including posts, likes, follows, and time spent.
-
-3. **Challenge/Test Dataset**  
-   A separate dataset used for evaluating predictive models and generating submissions for academic performance impact challenges.
+This project uses machine learning to predict social media addiction scores among students based on behavioral, demographic, and psychological data.
 
 ---
 
-## Dataset Descriptions
+## 📁 Dataset Files
 
-### 1. Students Social Media Addiction Dataset
-Includes features such as Gender, Academic Level, Country, Average Daily Usage Hours, Most Used Platform, Sleep Hours, Mental Health Score, Relationship Status, Conflicts Related to Social Media, and whether social media affects academic performance.
+- `cleaned_social_media_usage.csv`  
+- `cleaned_Students Social Media Addiction.csv`
 
-### 2. Social Media Usage Dataset
-Contains User IDs, social media applications used, Daily Minutes Spent, Posts Per Day, Likes Per Day, and Follows Per Day.
-
-### 3. Challenge/Test Dataset
-Similar in structure to the training datasets but without target labels, intended for model validation and submission.
+These datasets include features such as daily usage hours, platform preference, sleep hours, mental health scores, and self-reported social media addiction impact.
 
 ---
 
-## Purpose
+## 🧹 Data Cleaning & Preprocessing
 
-These datasets provide a comprehensive foundation for analyzing the impact of social media on student well-being and academic performance. They support exploratory data analysis, predictive modeling, and development of interventions to promote healthier social media use.
+- Removed duplicates and ID columns (`Student_ID` excluded from model)  
+- Handled missing values with removal or imputation  
+- One-hot encoded categorical variables (Gender, Academic Level, Relationship Status)  
+- Scaled numerical features where applicable  
+- Selected only relevant numerical and encoded features for modeling
 
 ---
 
-## Usage Instructions
+## 🧠 Machine Learning
 
-### 1. Load Data
+- **Model Used:** Random Forest Regressor  
+- **Target Variable:** `Addicted_Score`  
+- **Train-Test Split:** 85% training, 15% test  
+- **Evaluation Metrics:** MAE, RMSE on validation set  
 
-```python
-import pandas as pd
+---
 
-# Load datasets
-df_addiction = pd.read_csv('path/to/students_social_media_addiction.csv')
-df_usage = pd.read_csv('path/to/social_media_usage.csv')
-df_test = pd.read_csv('path/to/challenge_test.csv')
+## 📊 Final Predictions & Confidence Intervals
+
+The final model predicts addiction scores on test data and includes 90% confidence bounds estimated from ensemble trees.
+
+| Column                    | Description                               |
+|---------------------------|-------------------------------------------|
+| `Predicted_Addicted_Score`| Rounded predicted score (2 decimal places)|
+| `Lower_90%_Bound`         | Estimated 10th percentile of predictions  |
+| `Upper_90%_Bound`         | Estimated 90th percentile of predictions  |
+
+---
+
+## 📂 Output File
+
+- `social_media_addiction_predictions.csv` — predictions with confidence intervals
+
+---
+
+## 📈 Visualizations
+
+*(Add your charts here)*
+
+- Distribution of features before and after scaling  
+- Actual vs predicted addiction scores  
+- Feature importance from the Random Forest model
+
+![Feature Importance Example](images/feature_importance.png)  
+![Prediction Distribution](images/prediction_distribution.png)  
+
+*(Replace with your actual plots or notebook output snapshots)*
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.7+  
+- Required packages (can install via pip):
+
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn
